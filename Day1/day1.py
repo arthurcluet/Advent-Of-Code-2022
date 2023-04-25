@@ -9,7 +9,9 @@ def main():
         else:
             count += 1
             arr.append(0)
-    print(max(arr))
+    arr.sort()
+    print("Part 1", max(arr))
+    print("Part 2", sum(arr[-3:]))
 
 
 if __name__ == "__main__":

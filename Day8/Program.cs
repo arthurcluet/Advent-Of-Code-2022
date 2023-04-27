@@ -119,6 +119,8 @@ namespace Day8
                 line = reader.ReadLine();
             }
 
+            reader.Close();
+
             int[,] grid = new int[inputLines.Count, inputLines[0].Length];
             for (int i = 0; i < inputLines.Count; i++)
             {

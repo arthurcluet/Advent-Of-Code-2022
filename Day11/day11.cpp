@@ -20,10 +20,9 @@ std::vector<std::string> split(std::string input, std::string delimiter)
     return items;
 }
 
-long compute(bool part2 = false)
+long compute(bool part2 = false, std::string filename = "./inputs/input.txt")
 {
     // Lecture du fichier
-    std::string filename = "./inputs/input.txt";
     std::ifstream reader(filename);
     std::vector<std::string> lines;
     for (std::string line; getline(reader, line);)
@@ -139,7 +138,8 @@ long compute(bool part2 = false)
 
 int main()
 {
-    std::cout << compute(false) << std::endl;
-    std::cout << compute(true) << std::endl;
+    // compute(bool part2, std::string filename)
+    std::cout << compute(false, "./inputs/input.txt") << std::endl;
+    std::cout << compute(true, "./inputs/input.txt") << std::endl;
     return 0;
 }

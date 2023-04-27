@@ -19,7 +19,7 @@ dotnet run
 <details>
   <summary>Advent Of Code 2022</summary>
   
-  <img src="capture.png" alt="Capture" width="200">
+  <img src="capture.png" alt="Capture" width="600">
   
 </details>
 

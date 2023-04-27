@@ -2,15 +2,17 @@
 class Program
 {
 
-    public static void Compute(string filename)
+    public static int Compute(string filename, int nbTails = 1)
     {
         StreamReader reader = new StreamReader(filename);
         string? input = reader.ReadLine();
 
         // I chose to store positions in 4 variables
-        int Hx = 0, Hy = 0, Tx = 0, Ty = 0;
+
+        int[,] positions = new int[nbTails + 1, 2];
+
         List<string> history = new List<string>();
-        history.Add($"{Tx}-{Ty}");
+        history.Add($"{positions[nbTails, 0]}-{positions[nbTails, 1]}");
 
         while (input != null)
         {
@@ -24,66 +26,84 @@ class Program
                 switch (direction)
                 {
                     case "U":
-                        Hy++;
+                        positions[0, 1]++;
                         break;
                     case "D":
-                        Hy--;
+                        positions[0, 1]--;
                         break;
                     case "L":
-                        Hx--;
+                        positions[0, 0]--;
                         break;
                     case "R":
-                        Hx++;
+                        positions[0, 0]++;
                         break;
                 }
-                // Make the tail follow the head if necessary
-                if (Math.Abs(Hx - Tx) <= 1 && Math.Abs(Hy - Ty) <= 1)
+                // Make the tails follow the head if necessary
+                for (int j = 1; j < positions.GetLength(0); j++)
                 {
-                    // Close enough
-                }
-                else
-                {
-                    // The tail must follow
-                    // If not in the same column nor row:
-                    if (Hx != Tx && Hy != Ty)
+
+                    if (Math.Abs(positions[j - 1, 0] - positions[j, 0]) <= 1 && Math.Abs(positions[j - 1, 1] - positions[j, 1]) <= 1)
                     {
-                        if (Hx > Tx) Tx++;
-                        else Tx--;
-                        if (Hy > Ty) Ty++;
-                        else Ty--;
+                        // Close enough
                     }
                     else
                     {
-                        // Need to move in the same col or row
-                        if (Hx == Tx)
+                        // The tail must follow
+                        // If not in the same column nor row:
+                        if (positions[j - 1, 0] != positions[j, 0] && positions[j - 1, 1] != positions[j, 1])
                         {
-                            // Move in col
-                            if (Hy > Ty) Ty++;
-                            else Ty--;
+                            if (positions[j - 1, 0] > positions[j, 0]) positions[j, 0]++;
+                            else positions[j, 0]--;
+                            if (positions[j - 1, 1] > positions[j, 1]) positions[j, 1]++;
+                            else positions[j, 1]--;
                         }
                         else
                         {
-                            // Move in row
-                            if (Hx > Tx) Tx++;
-                            else Tx--;
+                            // Need to move in the same col or row
+                            if (positions[j - 1, 0] == positions[j, 0])
+                            {
+                                // Move in col
+                                if (positions[j - 1, 1] > positions[j, 1]) positions[j, 1]++;
+                                else positions[j, 1]--;
+                            }
+                            else
+                            {
+                                // Move in row
+                                if (positions[j - 1, 0] > positions[j, 0]) positions[j, 0]++;
+                                else positions[j, 0]--;
+                            }
                         }
                     }
+
                 }
-                if (!history.Contains($"{Tx}-{Ty}"))
-                    history.Add($"{Tx}-{Ty}");
+                if (!history.Contains($"{positions[nbTails, 0]}-{positions[nbTails, 1]}"))
+                    history.Add($"{positions[nbTails, 0]}-{positions[nbTails, 1]}");
             }
 
             input = reader.ReadLine();
         }
         reader.Close();
 
-        Console.WriteLine($"--- {filename} ---");
-        Console.WriteLine($"Part 1: {history.Count}");
+        //Console.WriteLine($"--- {filename} ---");
+        //Console.WriteLine($"Part 1: {history.Count}");
+
+        return history.Count;
 
     }
     static void Main(string[] args)
     {
-        Compute("./test_input.txt");
-        Compute("./input.txt");
+
+        string[] filenames = new string[] { "./test_input.txt", "./input.txt" };
+        foreach (string filename in filenames)
+        {
+            int p1 = Compute(filename, 1);
+            int p2 = Compute(filename, 9);
+            Console.WriteLine($"--- {filename} ---");
+            Console.WriteLine($"Part 1: {p1}");
+            Console.WriteLine($"Part 2: {p2}");
+        }
+
+
+        //Compute("./input.txt");
     }
 }

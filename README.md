@@ -14,6 +14,15 @@ cd Day5
 dotnet run
 ```
 
+### Progress Capture
+
+<details>
+  <summary>Advent Of Code 2022</summary>
+  
+  <img src="capture.png" alt="Capture" width="200">
+  
+</details>
+
 #### System Information
 
 _Code should work with older versions and OS._

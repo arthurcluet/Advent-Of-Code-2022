@@ -23,7 +23,7 @@ std::vector<std::string> split(std::string input, std::string delimiter)
 long compute(bool part2 = false)
 {
     // Lecture du fichier
-    std::string filename = "input.txt";
+    std::string filename = "./inputs/input.txt";
     std::ifstream reader(filename);
     std::vector<std::string> lines;
     for (std::string line; getline(reader, line);)
@@ -139,6 +139,7 @@ long compute(bool part2 = false)
 
 int main()
 {
+    std::cout << compute(false) << std::endl;
     std::cout << compute(true) << std::endl;
     return 0;
 }

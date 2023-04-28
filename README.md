@@ -52,3 +52,4 @@ _Code should work with older versions and OS._
 | Python | 3.10.0 |
 | .NET | 7.0.203 (Arm64) |
 | clang | 14.0.3 (clang-1403.0.22.14.1) |
+| C++ | C++11 |
